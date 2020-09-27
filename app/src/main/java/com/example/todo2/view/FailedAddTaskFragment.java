@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 
 import com.example.todo2.R;
 
@@ -28,14 +27,14 @@ public class FailedAddTaskFragment extends AppCompatDialogFragment {
                 .setNegativeButton("nie", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.retry(false);
+                        listener.onRetry(false);
 
                     }
                 })
                 .setPositiveButton("tak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.retry(true);
+                        listener.onRetry(true);
                     }
                 });
 
@@ -54,6 +53,6 @@ public class FailedAddTaskFragment extends AppCompatDialogFragment {
 
 
     public interface FailedAddTaskFragmentListener {
-        void retry(boolean isRetry);
+        void onRetry(boolean isRetry);
     }
 }

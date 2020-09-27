@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.todo2.R;
+import com.example.todo2.model.TaskData;
 
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
-import dagger.Component;
 
 public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.ViewHolder>{
 
-    private List<String> mData;
+    private List<TaskData> mTaskDatas;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public  TasksRecyclerView(Context context, List<String> data) {
+    public  TasksRecyclerView(Context context, List<TaskData> taskDatas) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mTaskDatas = taskDatas;
     }
 
     // inflates the row layout from xml when needed
@@ -36,14 +36,14 @@ public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.Vi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        TaskData taskData = mTaskDatas.get(position);
+        holder.myTextView.setText(taskData.getName());
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mTaskDatas.size();
     }
 
 
@@ -64,8 +64,8 @@ public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.Vi
     }
 
     // convenience method for getting data at click position
-    String getItem(int id) {
-        return mData.get(id);
+    TaskData getItem(int id) {
+        return mTaskDatas.get(id);
     }
 
     // allows clicks events to be caught

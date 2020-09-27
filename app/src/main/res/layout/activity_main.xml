@@ -11,7 +11,11 @@
         android:id="@+id/rvTasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    <FrameLayout
+        android:id="@+id/your_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
