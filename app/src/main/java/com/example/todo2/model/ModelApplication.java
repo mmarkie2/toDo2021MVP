@@ -5,17 +5,17 @@ import android.app.Application;
 import java.util.ArrayList;
 
 public class ModelApplication extends Application  {
-  static ArrayList<TaskData> taskDatas=new ArrayList<>();
+  static ArrayList<TaskDataWithId> taskDataWithIds =new ArrayList<>();
 
-    public static ArrayList<TaskData> getTaskDatas()  {
-//        if (taskDatas==null)
+    public static ArrayList<TaskDataWithId> getTaskDataWithIds()  {
+//        if (taskDataWithIds==null)
 //        {
 //            throw new Exception("TaskDatas is null");
 //        }
-        return taskDatas;
+        return taskDataWithIds;
     }
 
-    public static void setTaskDatas(ArrayList<TaskData> taskDatas) {
-        ModelApplication.taskDatas = taskDatas;
+    public static void setTaskDataWithIds(ArrayList<TaskDataWithId> taskDataWithIds) {
+        ModelApplication.taskDataWithIds = taskDataWithIds;
     }
 }

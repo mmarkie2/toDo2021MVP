@@ -21,7 +21,8 @@ public class AddTaskModel implements Contract.addTaskPresenterToModel {
     @Override
     public void saveTask(TaskData taskData) {
         this.taskDatas.add(taskData);
-        ModelApplication.getTaskDatas().add(taskData);
+        int id=-1;
+        ModelApplication.getTaskDataWithIds().add(new TaskDataWithId(taskData,id));
     }
 
 

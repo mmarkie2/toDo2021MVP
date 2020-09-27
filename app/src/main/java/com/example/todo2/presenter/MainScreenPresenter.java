@@ -1,16 +1,12 @@
 package com.example.todo2.presenter;
 
-import android.util.Log;
-
 import com.example.todo2.Contract;
 
-import com.example.todo2.model.AddTaskModel;
 import com.example.todo2.model.ModelApplication;
 import com.example.todo2.model.TaskData;
+import com.example.todo2.model.TaskDataWithId;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 
 public class MainScreenPresenter implements Contract.modelToAllTasksPresenter , Contract.mainScreenViewToPresenter {
@@ -18,17 +14,23 @@ public class MainScreenPresenter implements Contract.modelToAllTasksPresenter , 
     String TAG="debugLog";
 
 Contract.presenterToMainScreenView view;
-
+ArrayList<TaskDataWithId> currentTaskDataWithIds;
 
     public MainScreenPresenter(Contract.presenterToMainScreenView view) {
 this.view =view;
+        currentTaskDataWithIds=new ArrayList<>();
     }
 
 
     @Override
     public void onResume() {
+        currentTaskDataWithIds= ModelApplication.getTaskDataWithIds();
+        view.showTasks(new ArrayList<TaskData>(currentTaskDataWithIds));
 
-        view.showTasks( ModelApplication.getTaskDatas());
+    }
+
+    @Override
+    public void onItemDelete(int position) {
 
     }
 }

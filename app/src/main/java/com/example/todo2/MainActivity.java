@@ -8,6 +8,7 @@ import com.example.todo2.model.ModelApplication;
 import com.example.todo2.model.TaskData;
 import com.example.todo2.presenter.MainScreenPresenter;
 import com.example.todo2.view.AddTaskActivity;
+import com.example.todo2.view.ClickListener;
 import com.example.todo2.view.TasksRecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -74,7 +75,12 @@ presenter= new MainScreenPresenter(this);
         {
             Log.d(TAG,taskData.getInfo());
         }
-        tasksRecyclerView = new TasksRecyclerView(this, taskDatas);
+        tasksRecyclerView = new TasksRecyclerView(this, taskDatas, new ClickListener() {
+            @Override
+            public void onPositionClicked(int position) {
+                presenter.onItemDelete(position);
+            }
+        });
 
         recyclerView.setAdapter(tasksRecyclerView );
 

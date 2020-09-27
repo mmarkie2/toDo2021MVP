@@ -31,6 +31,7 @@ void onSubmitClick(String name, String type, Calendar date);
     {
 
 void onResume();
+void onItemDelete(int position);
     }
 
     interface presenterToMainScreenView
