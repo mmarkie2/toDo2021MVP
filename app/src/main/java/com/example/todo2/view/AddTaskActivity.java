@@ -43,7 +43,7 @@ private Contract.addTaskViewToPresenter presenter;
     @Override
     public void onInvalidInput(String message) {
         new FailedAddTaskFragment()
-                .show(getSupportFragmentManager(), "FailedAddTaskFragment");
+                .show(getSupportFragmentManager(), message);
     }
     @Override
     public void onCorrectInput() {
@@ -58,6 +58,8 @@ private Contract.addTaskViewToPresenter presenter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        Contract.addTaskPresenterToModel model=new AddTaskModel();
+        presenter=new AddTaskPresenter(this,model);
         //initializing views
         nameEditText=findViewById(R.id.nameEditText);
 
@@ -78,16 +80,11 @@ private Contract.addTaskViewToPresenter presenter;
         });
 
         // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Automobile");
-        categories.add("Business Services");
-        categories.add("Computers");
-        categories.add("Education");
-        categories.add("Personal");
-        categories.add("Travel");
+        List<String> types = presenter.getTypes();
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,8 +103,8 @@ private Contract.addTaskViewToPresenter presenter;
 
         cancelButton=findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(v -> finish()  );
-        Contract.addTaskPresenterToModel model=new AddTaskModel();
-presenter=new AddTaskPresenter(this,model);
+
+
 
         ModelApplication.testDB();
 

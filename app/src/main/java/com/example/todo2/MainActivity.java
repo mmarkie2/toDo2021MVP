@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,14 +35,14 @@ public class MainActivity extends AppCompatActivity implements Contract.presente
 
     private Contract.mainScreenViewToPresenter presenter;
     RecyclerView recyclerView;
-
+TextView noTasksView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        noTasksView=findViewById(R.id.noTasksView);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,17 +87,21 @@ presenter= new MainScreenPresenter(this);
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume() main");
+
         presenter.onResume();
 
     }
 
     @Override
     public void showTasks(ArrayList<TaskData> taskDatas) {
-        for (TaskData taskData: taskDatas)
-        {
-            Log.d(TAG,taskData.getInfo());
-        }
+    if(taskDatas.size()==0)
+    {
+        noTasksView.setVisibility(View.VISIBLE);
+    }
+    else
+    {
+        noTasksView.setVisibility(View.INVISIBLE);
+    }
         tasksRecyclerView = new TasksRecyclerView(this, taskDatas, new ClickListener() {
             @Override
             public void onPositionClicked(int position) {

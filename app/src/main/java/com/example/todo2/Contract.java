@@ -5,13 +5,14 @@ import com.example.todo2.model.TaskDataWithId;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public interface Contract {
 
     interface addTaskViewToPresenter
     {
 void onSubmitClick(String name, String type, Calendar date);
-
+List<String > getTypes();
     }
     interface presenterToAddTaskView
     {

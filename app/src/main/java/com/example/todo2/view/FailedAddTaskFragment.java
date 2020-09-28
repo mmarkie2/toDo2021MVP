@@ -23,7 +23,8 @@ public class FailedAddTaskFragment extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_failed_add_task, null);
         builder.setView(view)
-                .setTitle("Nieprawidłowy format.Czy chcesz powtórzyć?")
+
+                .setMessage(this.getTag()+" Czy chcesz powtórzyć?")
                 .setNegativeButton("nie", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

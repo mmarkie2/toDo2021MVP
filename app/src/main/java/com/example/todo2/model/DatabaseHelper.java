@@ -139,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public long insertIntoTable(String tableName, ContentValues values) {
-
+//insert function which is safe from typical sql injection
         return  this.DBClass .insert(tableName, null, values);
     }
     public long deleteFromTable(String tableName, int id) {

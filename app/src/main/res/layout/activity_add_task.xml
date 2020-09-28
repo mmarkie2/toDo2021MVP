@@ -14,6 +14,7 @@
         android:layout_height="45dp"
         android:background="@drawable/rounded_button_background"
         android:ems="10"
+        android:maxLength="20"
         android:hint="Tu wpisz nazwę"
         android:inputType="textPersonName"
         android:textAlignment="center"

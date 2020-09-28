@@ -3,7 +3,11 @@ package com.example.todo2.presenter;
 import com.example.todo2.Contract;
 import com.example.todo2.model.TaskData;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 public class AddTaskPresenter implements Contract.addTaskViewToPresenter {
     String TAG="debugLog";
@@ -24,7 +28,8 @@ Contract.addTaskPresenterToModel model;
         c.set(Calendar.MONTH,1);
         c.set(Calendar.DAY_OF_MONTH, 1);
         date=c;
-        if (isTaskInfoValid(name,type,date))
+        String errorMessage=isTaskInfoValid(name,type,date);
+        if (errorMessage==null)
         {
             model.saveTask(new TaskData
                     (name,type,date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH)));
@@ -32,23 +37,33 @@ Contract.addTaskPresenterToModel model;
         }
         else
         {
-view.onInvalidInput("invalid input");
+view.onInvalidInput(errorMessage);
         }
     }
 
+    @Override
+    public List<String> getTypes()  {
+        return new ArrayList<String>(Arrays.asList("Praca","Zakupy","Inne"));
+    }
 
-
-    boolean isTaskInfoValid(String name, String type, Calendar date)
+    String isTaskInfoValid(String name, String type, Calendar date)
+{
+if(name.equals(""))
 {
 
-
-    if (name!=null && type!=null && date!=null)
+    return "Nazwa nie może być pusta.";
+}
+else if ( type==null)
+{
+    return  "Musisz podać typ.";
+}
+   else if ( date==null)
     {
-        return true;
+        return  "Musisz podać datę.";
     }
     else
     {
-        return false;
+        return null;
     }
 }
 
