@@ -1,6 +1,7 @@
 package com.example.todo2;
 
 import com.example.todo2.model.TaskData;
+import com.example.todo2.model.TaskDataWithId;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,11 +23,7 @@ void onSubmitClick(String name, String type, Calendar date);
         void saveTask(TaskData taskData);
 
     }
-    interface modelToAllTasksPresenter
-    {
 
-
-    }
     interface mainScreenViewToPresenter
     {
 
@@ -37,6 +34,11 @@ void onItemDelete(int position);
     interface presenterToMainScreenView
     {
         void showTasks(ArrayList<TaskData> taskDatas);
+    }
+    interface presenterToMainScreenModel
+    {
+        ArrayList<TaskDataWithId> queryTasks();
+        void deleteTask (int taskId);
     }
 
 }

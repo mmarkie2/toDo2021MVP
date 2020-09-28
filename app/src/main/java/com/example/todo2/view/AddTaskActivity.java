@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.todo2.Contract;
 import com.example.todo2.R;
 import com.example.todo2.model.AddTaskModel;
 
+import com.example.todo2.model.ModelApplication;
 import com.example.todo2.presenter.MainScreenPresenter;
 import com.example.todo2.presenter.AddTaskPresenter;
 
@@ -45,7 +47,10 @@ private Contract.addTaskViewToPresenter presenter;
     }
     @Override
     public void onCorrectInput() {
-finish();
+        Toast.makeText(this, "Dodano Zadanie",
+                Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 
     @Override
@@ -104,7 +109,7 @@ finish();
         Contract.addTaskPresenterToModel model=new AddTaskModel();
 presenter=new AddTaskPresenter(this,model);
 
-
+        ModelApplication.testDB();
 
     }
 

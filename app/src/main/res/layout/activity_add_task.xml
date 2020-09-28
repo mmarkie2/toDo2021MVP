@@ -17,13 +17,12 @@
         android:hint="Tu wpisz nazwę"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:textColorHint="#00413D3D"
+        android:textColorHint="#8D8A8F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33" />
+        app:layout_constraintVertical_bias="0.106" />
 
     <Spinner
         android:id="@+id/typeSpinner"
@@ -43,6 +42,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button_background"
         android:text="Wybierz Datę"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"

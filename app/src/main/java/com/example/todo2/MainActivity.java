@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import com.example.todo2.model.DatabaseHelper;
+import com.example.todo2.model.FileHelper;
 import com.example.todo2.model.ModelApplication;
+import com.example.todo2.model.RuntimePermissionHelper;
 import com.example.todo2.model.TaskData;
 import com.example.todo2.presenter.MainScreenPresenter;
 import com.example.todo2.view.AddTaskActivity;
@@ -16,9 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements Contract.presenterToMainScreenView {
@@ -59,6 +64,23 @@ presenter= new MainScreenPresenter(this);
 
 
 
+        RuntimePermissionHelper runtimePermissionHelper=new RuntimePermissionHelper(this);
+        runtimePermissionHelper.isAllPermissionAvailable();
+        runtimePermissionHelper.requestPermissionsIfDenied();
+
+
+        while(! runtimePermissionHelper. isAllPermissionAvailable())
+        {
+
+            runtimePermissionHelper.requestPermissionsIfDenied();
+        }
+
+        File storageFile =new File(  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "mmarkiToDoApp"+ File.separator) ;
+
+
+        ModelApplication.setDatabaseHelper(this,"tasks.db",storageFile);
+
+
     }
 
     @Override
@@ -83,6 +105,9 @@ presenter= new MainScreenPresenter(this);
         });
 
         recyclerView.setAdapter(tasksRecyclerView );
+
+
+
 
     }
 

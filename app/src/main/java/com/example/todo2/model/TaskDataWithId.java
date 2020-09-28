@@ -3,7 +3,11 @@ package com.example.todo2.model;
 public class TaskDataWithId extends TaskData {
     int id;
 
-    public TaskDataWithId(String name, String type, int year, int month, int dayOfMonth, int id) {
+    public int getId() {
+        return id;
+    }
+
+    public TaskDataWithId(int id, String name, String type, int year, int month, int dayOfMonth) {
         super(name, type, year, month, dayOfMonth);
         this.id = id;
     }

@@ -1,5 +1,7 @@
 package com.example.todo2.model;
 
+import android.content.ContentValues;
+
 import com.example.todo2.Contract;
 
 import java.util.ArrayList;
@@ -21,8 +23,13 @@ public class AddTaskModel implements Contract.addTaskPresenterToModel {
     @Override
     public void saveTask(TaskData taskData) {
         this.taskDatas.add(taskData);
-        int id=-1;
-        ModelApplication.getTaskDataWithIds().add(new TaskDataWithId(taskData,id));
+        ContentValues values = new ContentValues();
+        values.put("name", taskData.getName());
+        values.put("type", taskData.getType());
+        values.put("year", taskData.getYear());
+        values.put("month", taskData.getMonth());
+        values.put("dayOfMonth", taskData.getDayOfMonth());
+        ModelApplication.getDatabaseHelper() .insertIntoTable("tasks",values);
     }
 
 
