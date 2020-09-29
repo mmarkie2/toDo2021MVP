@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 import com.example.todo2.R;
 import com.example.todo2.model.TaskData;
 
@@ -18,17 +17,17 @@ import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.ViewHolder>{
+public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecyclerViewAdapter.ViewHolder> {
 
     private List<TaskData> mTaskDatas;
     private LayoutInflater mInflater;
-    private ClickListener clickListener;
+    private RecyclerDeleteButtonClickListener recyclerDeleteButtonClickListener;
 
-    // data is passed into the constructor
-    public  TasksRecyclerView(Context context, List<TaskData> taskDatas, ClickListener listener) {
+
+    public TasksRecyclerViewAdapter(Context context, List<TaskData> taskDatas, RecyclerDeleteButtonClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.mTaskDatas = taskDatas;
-        this.clickListener=listener;
+        this.recyclerDeleteButtonClickListener = listener;
     }
 
     // inflates the row layout from xml when needed
@@ -36,7 +35,7 @@ public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
-        return new ViewHolder(view,this.clickListener);
+        return new ViewHolder(view, this.recyclerDeleteButtonClickListener);
     }
 
     // binds the data to the TextView in each row
@@ -56,7 +55,7 @@ public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.Vi
 
     }
 
-    // total number of rows
+
     @Override
     public int getItemCount() {
         return mTaskDatas.size();
@@ -68,9 +67,10 @@ public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.Vi
         TextView nameView;
         TextView categoryView;
         TextView dateView;
-      Button deleteButton;
-        private WeakReference<ClickListener> listenerRef;
-        ViewHolder(final View itemView, ClickListener listener) {
+        Button deleteButton;
+        private WeakReference<RecyclerDeleteButtonClickListener> listenerRef;
+
+        ViewHolder(final View itemView, RecyclerDeleteButtonClickListener listener) {
             super(itemView);
             listenerRef = new WeakReference<>(listener);
 
@@ -79,25 +79,20 @@ public class TasksRecyclerView extends RecyclerView.Adapter<TasksRecyclerView.Vi
             dateView = itemView.findViewById(R.id.dateView);
 
 
-            deleteButton= itemView.findViewById(R.id.deleteButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
             deleteButton.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View v) {
-
+// detects if delete button was clicked
             if (v.getId() == deleteButton.getId()) {
                 listenerRef.get().onPositionClicked(getAdapterPosition());
             }
 
 
         }
-    }
-
-    // convenience method for getting data at click position
-    TaskData getItem(int id) {
-        return mTaskDatas.get(id);
     }
 
 

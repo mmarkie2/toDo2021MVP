@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class AddTaskModel implements Contract.addTaskPresenterToModel {
-
+//On purpose spelling typo to indicate that field is a list by "s" (;
     ArrayList<TaskData> taskDatas;
 
 
@@ -29,7 +29,7 @@ public class AddTaskModel implements Contract.addTaskPresenterToModel {
         values.put("year", taskData.getYear());
         values.put("month", taskData.getMonth());
         values.put("dayOfMonth", taskData.getDayOfMonth());
-        ModelApplication.getDatabaseHelper() .insertIntoTable("tasks",values);
+        ModelApplication.getDatabaseHelper().insertIntoTable("tasks", values);
     }
 
 

@@ -1,5 +1,5 @@
 package com.example.todo2.view;
 
-public interface ClickListener {
+public interface RecyclerDeleteButtonClickListener {
     void onPositionClicked(int position);
 }

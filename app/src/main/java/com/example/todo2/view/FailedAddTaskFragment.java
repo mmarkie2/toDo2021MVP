@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class FailedAddTaskFragment extends AppCompatDialogFragment {
 
     private FailedAddTaskFragmentListener listener;
-
+//shows dialog when user inputs invalid dada
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -24,7 +24,7 @@ public class FailedAddTaskFragment extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.fragment_failed_add_task, null);
         builder.setView(view)
 
-                .setMessage(this.getTag()+" Czy chcesz powtórzyć?")
+                .setMessage(this.getTag() + " Czy chcesz powtórzyć?")
                 .setNegativeButton("nie", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -41,6 +41,7 @@ public class FailedAddTaskFragment extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

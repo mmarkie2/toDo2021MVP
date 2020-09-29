@@ -10,45 +10,39 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class FileHelper {
-    private  String TAG="debugLog";
-
-
+    final String databaseName;
     String assetsDBPath;
 
     File storageDirectory;
 
     Context context;
-    final String databaseName;
+    private String TAG = "debugLog";
     private File outFile;
+
+    public FileHelper(Context context, final String databaseName, File storageDirectory) {
+
+        this.context = context;
+        this.databaseName = databaseName;
+        this.storageDirectory = storageDirectory;
+
+        if (android.os.Build.VERSION.SDK_INT >= 17) {
+            this.assetsDBPath = context.getApplicationInfo().dataDir + "/databases/";
+        } else {
+            this.assetsDBPath = "/data/data/" + context.getPackageName() + "/databases/";
+        }
+
+        this.storageDirectory.mkdir();
+        outFile = new File(this.storageDirectory.getPath(), databaseName);
+    }
 
     public File getOutFile() {
         return outFile;
     }
 
-    public FileHelper(Context context, final String databaseName, File storageDirectory) {
-
-        this.context = context;
-        this.databaseName=databaseName;
-        this.storageDirectory = storageDirectory ;
-
-        if(android.os.Build.VERSION.SDK_INT >= 17){
-            this.assetsDBPath = context.getApplicationInfo().dataDir + "/databases/";
-        }
-        else
-        {
-            this.assetsDBPath = "/data/data/" + context.getPackageName() + "/databases/";
-        }
-
-        this.storageDirectory.mkdir();
-         outFile = new File(this.storageDirectory.getPath(),databaseName);
-    }
-
-
     public void copyFile() {
         AssetManager assetManager = context.getAssets();
         try {
             InputStream in = assetManager.open(databaseName);
-           ;
 
             OutputStream out = new FileOutputStream(outFile);
             byte[] buffer = new byte[1024];
@@ -59,7 +53,7 @@ public class FileHelper {
             }
 
         } catch (Exception e) {
-          Log.d(TAG,e.getMessage())  ;
+            Log.d(TAG, e.getMessage());
         }
     }
 }

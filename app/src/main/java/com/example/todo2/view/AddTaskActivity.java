@@ -1,10 +1,7 @@
 package com.example.todo2.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,37 +14,39 @@ import android.widget.Toast;
 import com.example.todo2.Contract;
 import com.example.todo2.R;
 import com.example.todo2.model.AddTaskModel;
-
 import com.example.todo2.model.ModelApplication;
-import com.example.todo2.presenter.MainScreenPresenter;
 import com.example.todo2.presenter.AddTaskPresenter;
+import com.example.todo2.presenter.MainScreenPresenter;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class AddTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, FailedAddTaskFragment.FailedAddTaskFragmentListener, Contract.presenterToAddTaskView {
-    String TAG="debugLog";
+
     EditText nameEditText;
     Spinner typeSpinner;
     Button dateButton;
     Button submitButton;
     Button cancelButton;
 
+//stores user input
+    String taskType = null;
+    Calendar taskDate = null;
 
-    String  taskType=null;
-    Calendar taskDate=null;
-private Contract.addTaskViewToPresenter presenter;
-    MainScreenPresenter mainScreenPresenter;
+    private Contract.addTaskViewToPresenter presenter;
+
     @Override
     public void onInvalidInput(String message) {
         new FailedAddTaskFragment()
                 .show(getSupportFragmentManager(), message);
     }
+
     @Override
     public void onCorrectInput() {
-        Toast.makeText(this, "Dodano Zadanie",
+        Toast.makeText(this, "Dodano Zadanie.",
                 Toast.LENGTH_SHORT).show();
 
         finish();
@@ -58,18 +57,20 @@ private Contract.addTaskViewToPresenter presenter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        Contract.addTaskPresenterToModel model=new AddTaskModel();
-        presenter=new AddTaskPresenter(this,model);
+
+        Contract.addTaskPresenterToModel model = new AddTaskModel();
+        presenter = new AddTaskPresenter(this, model);
+
         //initializing views
-        nameEditText=findViewById(R.id.nameEditText);
+        nameEditText = findViewById(R.id.nameEditText);
 
 
-        typeSpinner=findViewById(R.id.typeSpinner);
+        typeSpinner = findViewById(R.id.typeSpinner);
         // Spinner click listener
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                taskType = (String)parent.getItemAtPosition(position);
+                taskType = (String) parent.getItemAtPosition(position);
 
             }
 
@@ -93,45 +94,40 @@ private Contract.addTaskViewToPresenter presenter;
         typeSpinner.setAdapter(dataAdapter);
 
 
+        dateButton = findViewById(R.id.dateButton);
+        dateButton.setOnClickListener(v -> new DatePickerFragment()
+                .show(getSupportFragmentManager(), "date picker"));
 
-        dateButton=findViewById(R.id.dateButton);
-        dateButton.setOnClickListener(v ->  new DatePickerFragment()
-        .show(getSupportFragmentManager(), "date picker")  );
+        submitButton = findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(v -> presenter.onSubmitClick(nameEditText.getText().toString(), this.taskType, this.taskDate));
 
-        submitButton=findViewById(R.id.submitButton);
-        submitButton.setOnClickListener(v -> presenter.onSubmitClick(nameEditText.getText().toString(),this.taskType,this.taskDate)  );
-
-        cancelButton=findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(v -> finish()  );
-
+        cancelButton = findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(v -> finish());
 
 
-        ModelApplication.testDB();
+
 
     }
 
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        this.taskDate=c;
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        this.taskDate = Calendar.getInstance();
+
+        this.taskDate.set(Calendar.YEAR, year);
+        this.taskDate.set(Calendar.MONTH, month);
+        this.taskDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(this.taskDate.getTime());
 
         dateButton.setText(currentDateString);
     }
 
     @Override
     public void onRetry(boolean isRetry) {
-        if (isRetry)
-        {
+        if (isRetry) {
 
-        }
-        else
-        {
+        } else {
             finish();
         }
     }

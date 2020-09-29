@@ -1,9 +1,11 @@
 package com.example.todo2.model;
-
+//class storing one task data
 public class TaskData {
     String name;
     String type;
-    int year; int month; int dayOfMonth;
+    int year;
+    int month;
+    int dayOfMonth;
 
 
     public TaskData(String name, String type, int year, int month, int dayOfMonth) {
@@ -15,9 +17,8 @@ public class TaskData {
 
     }
 
-    public String getInfo()
-    {
-        return this.name+this.year;
+    public String getInfo() {
+        return this.name + this.year;
     }
 
     public String getName() {
