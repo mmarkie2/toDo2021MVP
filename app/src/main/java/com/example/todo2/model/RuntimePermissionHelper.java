@@ -1,12 +1,10 @@
 package com.example.todo2.model;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import com.example.todo2.R;
 
@@ -19,12 +17,12 @@ public final class RuntimePermissionHelper {
 
     public static final int PERMISSION_REQUEST_CODE = 1;
 
-    private Activity activity;
+    private final Activity activity;
 
     private ArrayList<String> requiredPermissions;
     private ArrayList<String> ungrantedPermissions = new ArrayList<String>();
 
-    public RuntimePermissionHelper(Activity activity,ArrayList<String> requiredPermissions) {
+    public RuntimePermissionHelper(Activity activity, ArrayList<String> requiredPermissions) {
         this.activity = activity;
         initPermissions(requiredPermissions);
     }
@@ -52,7 +50,6 @@ public final class RuntimePermissionHelper {
     }
 
 
-
     private void askPermissions() {
         if (ungrantedPermissions.size() > 0) {
             ActivityCompat.requestPermissions(activity,
@@ -61,7 +58,7 @@ public final class RuntimePermissionHelper {
     }
 
 
-//shows message asking to grant permissions
+    //shows message asking to grant permissions
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(activity)
                 .setMessage(message)

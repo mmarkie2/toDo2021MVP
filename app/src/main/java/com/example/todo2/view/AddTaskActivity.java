@@ -14,9 +14,7 @@ import android.widget.Toast;
 import com.example.todo2.Contract;
 import com.example.todo2.R;
 import com.example.todo2.model.AddTaskModel;
-import com.example.todo2.model.ModelApplication;
 import com.example.todo2.presenter.AddTaskPresenter;
-import com.example.todo2.presenter.MainScreenPresenter;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -26,15 +24,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, FailedAddTaskFragment.FailedAddTaskFragmentListener, Contract.presenterToAddTaskView {
 
-    EditText nameEditText;
-    Spinner typeSpinner;
-    Button dateButton;
-    Button submitButton;
-    Button cancelButton;
+    private   EditText nameEditText;
+    private   Spinner typeSpinner;
+    private    Button dateButton;
+    private    Button submitButton;
+    private    Button cancelButton;
 
-//stores user input
-    String taskType = null;
-    Calendar taskDate = null;
+    //stores user input
+    private    String taskType = null;
+    private   Calendar taskDate = null;
 
     private Contract.addTaskViewToPresenter presenter;
 
@@ -103,8 +101,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
         cancelButton = findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(v -> finish());
-
-
 
 
     }

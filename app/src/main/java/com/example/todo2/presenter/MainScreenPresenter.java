@@ -17,10 +17,9 @@ import java.util.ArrayList;
 public class MainScreenPresenter implements Contract.mainScreenViewToPresenter {
 
 
-
-    Contract.presenterToMainScreenView view;
-    Contract.presenterToMainScreenModel model;
-    ArrayList<TaskDataWithId> currentTaskDataWithIds;
+    private final Contract.presenterToMainScreenView view;
+    private final Contract.presenterToMainScreenModel model;
+    private    ArrayList<TaskDataWithId> currentTaskDataWithIds;
 
     public MainScreenPresenter(Contract.presenterToMainScreenView view) {
         this.view = view;
@@ -30,40 +29,36 @@ public class MainScreenPresenter implements Contract.mainScreenViewToPresenter {
         askForPermissionAndInitializeDBIfAvailable();
     }
 
-boolean askForPermissionAndInitializeDBIfAvailable()
-{
-    //requests storage permission
-    ArrayList<String> requiredPermissions = new ArrayList<String>();
-    requiredPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    requiredPermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-    RuntimePermissionHelper runtimePermissionHelper = new RuntimePermissionHelper(view.getActivity (),requiredPermissions);
+    boolean askForPermissionAndInitializeDBIfAvailable() {
+        //requests storage permission
+        ArrayList<String> requiredPermissions = new ArrayList<String>();
+        requiredPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        requiredPermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        RuntimePermissionHelper runtimePermissionHelper = new RuntimePermissionHelper(view.getActivity(), requiredPermissions);
 
-    if (!runtimePermissionHelper.isAllPermissionAvailable()) {
-        runtimePermissionHelper.requestPermissionsIfDenied();
-return false;
-    }
-    //triggered when user gives permission to storage
-    else if (ModelApplication.getDatabaseHelper()==null)
-    {
-        File storageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "mmarkiToDoApp" + File.separator);
+        if (!runtimePermissionHelper.isAllPermissionAvailable()) {
+            runtimePermissionHelper.requestPermissionsIfDenied();
+            return false;
+        }
+        //triggered when user gives permission to storage
+        else if (ModelApplication.getDatabaseHelper() == null) {
+            File storageFile = new File(Environment.getExternalStorageDirectory() + File.separator + "mmarkieToDoApp" + File.separator);
 
 
-        ModelApplication.setDatabaseHelper(view.getActivity (), "tasks.db", storageFile,true);
-        return true;
+            ModelApplication.setDatabaseHelper(view.getActivity(), "tasks.db", storageFile, false);
+            return true;
+        } else {
+            return true;
+        }
     }
-    else
-    {
-        return true;
-    }
-}
+
     @Override
     public void onResume() {
 
-if(ModelApplication.getDatabaseHelper()!=null)
-{
-    currentTaskDataWithIds = model.queryTasks();
-    view.showTasks(new ArrayList<TaskData>(currentTaskDataWithIds));
-}
+        if (ModelApplication.getDatabaseHelper() != null) {
+            currentTaskDataWithIds = model.queryTasks();
+            view.showTasks(new ArrayList<TaskData>(currentTaskDataWithIds));
+        }
 
 
     }
@@ -81,10 +76,9 @@ if(ModelApplication.getDatabaseHelper()!=null)
     @Override
     public void onAddButtonClick() {
 //checks if storage is available, otherwise tasks can not be stored
-      if(  askForPermissionAndInitializeDBIfAvailable())
-      {
-          view.goToAddTaskActivity();
-      }
+        if (askForPermissionAndInitializeDBIfAvailable()) {
+            view.goToAddTaskActivity();
+        }
 
 
     }

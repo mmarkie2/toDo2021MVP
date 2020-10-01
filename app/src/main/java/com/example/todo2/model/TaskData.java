@@ -1,11 +1,12 @@
 package com.example.todo2.model;
+
 //class storing one task data
 public class TaskData {
-    String name;
-    String type;
-    int year;
-    int month;
-    int dayOfMonth;
+    private final String name;
+    private final String type;
+    private final int year;
+    private final int month;
+    private final int dayOfMonth;
 
 
     public TaskData(String name, String type, int year, int month, int dayOfMonth) {

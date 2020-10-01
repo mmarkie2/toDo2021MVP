@@ -19,14 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecyclerViewAdapter.ViewHolder> {
 
-    private List<TaskData> mTaskDatas;
-    private LayoutInflater mInflater;
-    private RecyclerDeleteButtonClickListener recyclerDeleteButtonClickListener;
+    private final List<TaskData> taskDatas;
+    private final LayoutInflater inflater;
+    private final RecyclerDeleteButtonClickListener recyclerDeleteButtonClickListener;
 
 
     public TasksRecyclerViewAdapter(Context context, List<TaskData> taskDatas, RecyclerDeleteButtonClickListener listener) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mTaskDatas = taskDatas;
+        this.inflater = LayoutInflater.from(context);
+        this.taskDatas = taskDatas;
         this.recyclerDeleteButtonClickListener = listener;
     }
 
@@ -34,14 +34,14 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = inflater.inflate(R.layout.recyclerview_row, parent, false);
         return new ViewHolder(view, this.recyclerDeleteButtonClickListener);
     }
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TaskData taskData = mTaskDatas.get(position);
+        TaskData taskData = taskDatas.get(position);
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, taskData.getYear());
@@ -58,17 +58,17 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
 
     @Override
     public int getItemCount() {
-        return mTaskDatas.size();
+        return taskDatas.size();
     }
 
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView nameView;
-        TextView categoryView;
-        TextView dateView;
-        Button deleteButton;
-        private WeakReference<RecyclerDeleteButtonClickListener> listenerRef;
+          final TextView nameView;
+         final TextView categoryView;
+         final TextView dateView;
+          final Button deleteButton;
+        private final WeakReference<RecyclerDeleteButtonClickListener> listenerRef;
 
         ViewHolder(final View itemView, RecyclerDeleteButtonClickListener listener) {
             super(itemView);

@@ -10,8 +10,8 @@ import java.util.List;
 
 public class AddTaskPresenter implements Contract.addTaskViewToPresenter {
 
-    Contract.presenterToAddTaskView view;
-    Contract.addTaskPresenterToModel model;
+    private final Contract.presenterToAddTaskView view;
+    private final Contract.addTaskPresenterToModel model;
 
     public AddTaskPresenter(Contract.presenterToAddTaskView view, Contract.addTaskPresenterToModel model) {
         this.view = view;
@@ -20,14 +20,6 @@ public class AddTaskPresenter implements Contract.addTaskViewToPresenter {
 
     @Override
     public void onSubmitClick(String name, String type, Calendar date) {
-//TODO development hard coded
-        Calendar c = Calendar.getInstance();
-
-        c.set(Calendar.YEAR, 2020);
-        c.set(Calendar.MONTH, 1);
-        c.set(Calendar.DAY_OF_MONTH, 1);
-        date = c;
-        //TODO development hard coded
 
 
         String errorMessage = getErrorMessageIfInvalid(name, type, date);
@@ -39,7 +31,8 @@ public class AddTaskPresenter implements Contract.addTaskViewToPresenter {
             view.onInvalidInput(errorMessage);
         }
     }
-//returns available to chose types for spinner
+
+    //returns available to chose types for spinner
     @Override
     public List<String> getTypes() {
         return new ArrayList<String>(Arrays.asList("Praca", "Zakupy", "Inne"));

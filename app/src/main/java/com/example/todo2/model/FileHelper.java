@@ -10,14 +10,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class FileHelper {
-    final String databaseName;
-    String assetsDBPath;
+    private  final String databaseName;
+    private final String assetsDBPath;
 
-    File storageDirectory;
+    private final File storageDirectory;
 
-    Context context;
-    private String TAG = "debugLog";
-    private File outFile;
+    private final Context context;
+    private final String TAG = "debugLog";
+    private final File outFile;
 
     public FileHelper(Context context, final String databaseName, File storageDirectory) {
 

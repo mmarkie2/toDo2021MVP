@@ -1,7 +1,6 @@
 package com.example.todo2;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.example.todo2.model.TaskData;
 import com.example.todo2.model.TaskDataWithId;
@@ -34,12 +33,15 @@ public interface Contract {
         void onResume();
 
         void onItemDelete(int position);
+
         void onAddButtonClick();
     }
 
     interface presenterToMainScreenView {
         void showTasks(ArrayList<TaskData> taskDatas);
-        Activity getActivity ();
+
+        Activity getActivity();
+
         void goToAddTaskActivity();
     }
 
