@@ -1,6 +1,8 @@
 package com.example.todo2.view;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.todo2.Contract;
 import com.example.todo2.R;
-import com.example.todo2.model.AddTaskModel;
 import com.example.todo2.presenter.AddTaskPresenter;
 
 import java.text.DateFormat;
@@ -43,10 +44,18 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     }
 
     @Override
-    public void onCorrectInput() {
+    public void onCorrectInput(String name, String type, int year, int month, int dayOfMonth) {
         Toast.makeText(this, "Dodano Zadanie.",
                 Toast.LENGTH_SHORT).show();
 
+        Intent returnIntent = new Intent();
+
+        returnIntent.putExtra("name",name);
+        returnIntent.putExtra("type",type);
+        returnIntent.putExtra("year",year);
+        returnIntent.putExtra("month", month);
+        returnIntent.putExtra("dayOfMonth",dayOfMonth);
+        setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
 
@@ -56,8 +65,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         setContentView(R.layout.activity_add_task);
 
 
-        Contract.addTaskPresenterToModel model = new AddTaskModel();
-        presenter = new AddTaskPresenter(this, model);
+
+        presenter = new AddTaskPresenter(this);
 
         //initializing views
         nameEditText = findViewById(R.id.nameEditText);

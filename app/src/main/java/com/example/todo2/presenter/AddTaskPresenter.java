@@ -11,11 +11,11 @@ import java.util.List;
 public class AddTaskPresenter implements Contract.addTaskViewToPresenter {
 
     private final Contract.presenterToAddTaskView view;
-    private final Contract.addTaskPresenterToModel model;
 
-    public AddTaskPresenter(Contract.presenterToAddTaskView view, Contract.addTaskPresenterToModel model) {
+
+    public AddTaskPresenter(Contract.presenterToAddTaskView view) {
         this.view = view;
-        this.model = model;
+
     }
 
     @Override
@@ -24,9 +24,8 @@ public class AddTaskPresenter implements Contract.addTaskViewToPresenter {
 
         String errorMessage = getErrorMessageIfInvalid(name, type, date);
         if (errorMessage == null) {
-            model.saveTask(new TaskData
-                    (name, type, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH)));
-            view.onCorrectInput();
+
+            view.onCorrectInput( name, type, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
         } else {
             view.onInvalidInput(errorMessage);
         }

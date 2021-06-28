@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.todo2.R;
+import com.example.todo2.model.RoomTask;
 import com.example.todo2.model.TaskData;
 
 import java.lang.ref.WeakReference;
@@ -19,14 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecyclerViewAdapter.ViewHolder> {
 
-    private final List<TaskData> taskDatas;
+    private final  List<RoomTask> roomTasks;
     private final LayoutInflater inflater;
     private final RecyclerDeleteButtonClickListener recyclerDeleteButtonClickListener;
 
 
-    public TasksRecyclerViewAdapter(Context context, List<TaskData> taskDatas, RecyclerDeleteButtonClickListener listener) {
+    public TasksRecyclerViewAdapter(Context context, List<RoomTask> roomTasks, RecyclerDeleteButtonClickListener listener) {
         this.inflater = LayoutInflater.from(context);
-        this.taskDatas = taskDatas;
+        this.roomTasks = roomTasks;
         this.recyclerDeleteButtonClickListener = listener;
     }
 
@@ -41,24 +42,20 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TaskData taskData = taskDatas.get(position);
+        RoomTask roomTask = roomTasks.get(position);
 
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, taskData.getYear());
-        c.set(Calendar.MONTH, taskData.getMonth());
-        c.set(Calendar.DAY_OF_MONTH, taskData.getDayOfMonth());
-        String dateString = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
 
-        holder.nameView.setText(taskData.getName());
-        holder.categoryView.setText(taskData.getType());
-        holder.dateView.setText(dateString);
+
+        holder.nameView.setText(roomTask.getName());
+        holder.categoryView.setText(roomTask.getType());
+        holder.dateView.setText(roomTask.date.toString());
 
     }
 
 
     @Override
     public int getItemCount() {
-        return taskDatas.size();
+        return roomTasks.size();
     }
 
 

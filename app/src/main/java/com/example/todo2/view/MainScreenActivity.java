@@ -3,11 +3,13 @@ package com.example.todo2.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.todo2.Contract;
 import com.example.todo2.R;
+import com.example.todo2.model.RoomTask;
 import com.example.todo2.model.TaskData;
 import com.example.todo2.presenter.MainScreenPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,7 +27,8 @@ public class MainScreenActivity extends AppCompatActivity implements Contract.pr
     private    RecyclerView recyclerView;
     private    TextView noTasksView;
     private Contract.mainScreenViewToPresenter presenter;
-
+    private int addTaskActivityLaunchCode = 1;
+    private final String TAG = "debugLog";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,15 +71,15 @@ public class MainScreenActivity extends AppCompatActivity implements Contract.pr
     }
 
     @Override
-    public void showTasks(ArrayList<TaskData> taskDatas) {
+   public void showTasks(ArrayList<RoomTask> roomTasks) {
         //shows hint if there are no tasks
-        if (taskDatas.size() == 0) {
+        if (roomTasks.size() == 0) {
             noTasksView.setVisibility(View.VISIBLE);
         } else {
             noTasksView.setVisibility(View.INVISIBLE);
         }
         //sets up RV adapter
-        tasksRecyclerViewAdapter = new TasksRecyclerViewAdapter(this, taskDatas, new RecyclerDeleteButtonClickListener() {
+        tasksRecyclerViewAdapter = new TasksRecyclerViewAdapter(this, roomTasks, new RecyclerDeleteButtonClickListener() {
             @Override
             public void onPositionClicked(int position) {
                 presenter.onItemDelete(position);
@@ -90,10 +93,27 @@ public class MainScreenActivity extends AppCompatActivity implements Contract.pr
 
     @Override
     public void goToAddTaskActivity() {
-        Intent intent = new Intent(this, AddTaskActivity.class);
-
-        startActivity(intent);
+        Intent intent = new Intent(this,AddTaskActivity.class);
+        startActivityForResult(intent, addTaskActivityLaunchCode);
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == addTaskActivityLaunchCode) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+
+                presenter.saveTask( data. getStringExtra("name"), data. getStringExtra("type")
+                        ,  data. getIntExtra("year",1),   data. getIntExtra("month",1),
+                        data. getIntExtra("dayOfMonth",1));
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
+    } //onActivityResult
 
 
 }

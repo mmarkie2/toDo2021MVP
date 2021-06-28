@@ -1,7 +1,9 @@
 package com.example.todo2;
 
 import android.app.Activity;
+import android.content.Context;
 
+import com.example.todo2.model.RoomTask;
 import com.example.todo2.model.TaskData;
 import com.example.todo2.model.TaskDataWithId;
 
@@ -20,13 +22,10 @@ public interface Contract {
     interface presenterToAddTaskView {
         void onInvalidInput(String message);
 
-        void onCorrectInput();
+        void onCorrectInput(String name, String type, int year, int month, int dayOfMonth);
     }
 
-    interface addTaskPresenterToModel {
-        void saveTask(TaskData taskData);
 
-    }
 
     interface mainScreenViewToPresenter {
 
@@ -35,10 +34,12 @@ public interface Contract {
         void onItemDelete(int position);
 
         void onAddButtonClick();
+        void saveTask(String name, String type, int year, int month, int dayOfMonth);
+
     }
 
     interface presenterToMainScreenView {
-        void showTasks(ArrayList<TaskData> taskDatas);
+        void showTasks(ArrayList<RoomTask> roomTasks);
 
         Activity getActivity();
 
@@ -46,9 +47,10 @@ public interface Contract {
     }
 
     interface presenterToMainScreenModel {
-        ArrayList<TaskDataWithId> queryTasks();
+        ArrayList<RoomTask> queryTasks();
 
         void deleteTask(int taskId);
+        void saveTask(TaskData taskData);
     }
 
 }
