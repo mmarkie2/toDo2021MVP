@@ -1,5 +1,7 @@
-DAGGER2 version: https://github.com/mmarkie2/toDoDagger
-Plik .apk znajduje się w folderze BUILD. Oprócz warunków zapisanych na liście dodałem funkcję usuwania zadań, aby poprawić funkcjonalność aplikacji. Zastosowałem model MVP oraz częściowo wykorzystałem 
-Dependency Injection(Dagger2). 
-Aplikacje testowałem na telefonach Neffos X1(Android 7.0) oraz Huawei P8 lite(Android 5.0).
-Film pokazowy:  https://www.youtube.com/watch?v=DM51yL3YGow
+
+Plik .apk znajduje się w folderze BUILD.<br/>
+W aplikacji zastosowałem model MVP oraz częściowo wykorzystałem Dependency Injection(Dagger2). 
+Aplikacje testowałem na telefonach Neffos X1(Android 7.0) oraz  Pixel 2(emulacja, Android 8.0).<br>
+![image](https://user-images.githubusercontent.com/26182170/123939231-3907c900-d998-11eb-9959-c6d2b05129a6.png)
+
+
