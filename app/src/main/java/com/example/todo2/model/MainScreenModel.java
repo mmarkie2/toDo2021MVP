@@ -10,34 +10,34 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MainScreenModel implements Contract.presenterToMainScreenModel {
     private RoomDatabaseToDo roomDatabaseToDo;
 
+    @Inject
     public MainScreenModel(Context context) {
         this.roomDatabaseToDo = Room.databaseBuilder(context, RoomDatabaseToDo.class, RoomDatabaseToDo.name)
-                .allowMainThreadQueries().build();;
+                .allowMainThreadQueries().build();
+
     }
 
-    //queering ids for deleting purpose
+
     @Override
     public ArrayList<RoomTask> queryTasks() {
 
-       return new ArrayList<RoomTask> (roomDatabaseToDo.roomDAO().getAll());
-
+        return new ArrayList<RoomTask>(roomDatabaseToDo.roomDAO().getAll());
 
     }
 
     @Override
-    public void deleteTask(int taskId) {
-        roomDatabaseToDo.roomDAO().deleteById( taskId);
+    public void deleteTask(RoomTask roomTask) {
+        roomDatabaseToDo.roomDAO().delete(roomTask);
     }
 
     @Override
-    public void saveTask(TaskData taskData) {
+    public void saveTask(RoomTask roomTask) {
 
-
-
-        roomDatabaseToDo.roomDAO().insert(new RoomTask(taskData.getName(), taskData.getType(),
-                new Date( taskData.getYear(),taskData.getMonth(),taskData.getDayOfMonth())));
+        roomDatabaseToDo.roomDAO().insert(roomTask);
     }
 }

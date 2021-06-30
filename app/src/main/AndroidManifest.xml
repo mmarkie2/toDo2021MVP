@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".view.AddTaskActivity">
+        <activity android:name=".view.AddTaskActivity">
 
 
         </activity>

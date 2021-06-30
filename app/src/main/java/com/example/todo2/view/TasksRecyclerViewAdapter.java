@@ -9,18 +9,17 @@ import android.widget.TextView;
 
 import com.example.todo2.R;
 import com.example.todo2.model.RoomTask;
-import com.example.todo2.model.TaskData;
 
 import java.lang.ref.WeakReference;
-import java.text.DateFormat;
-import java.util.Calendar;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecyclerViewAdapter.ViewHolder> {
 
-    private final  List<RoomTask> roomTasks;
+    private final List<RoomTask> roomTasks;
     private final LayoutInflater inflater;
     private final RecyclerDeleteButtonClickListener recyclerDeleteButtonClickListener;
 
@@ -45,10 +44,12 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
         RoomTask roomTask = roomTasks.get(position);
 
 
-
         holder.nameView.setText(roomTask.getName());
         holder.categoryView.setText(roomTask.getType());
-        holder.dateView.setText(roomTask.date.toString());
+
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd ");
+        String date = formatter.format(roomTask.getDate());
+        holder.dateView.setText(date);
 
     }
 
@@ -61,10 +62,10 @@ public class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecycler
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-          final TextView nameView;
-         final TextView categoryView;
-         final TextView dateView;
-          final Button deleteButton;
+        final TextView nameView;
+        final TextView categoryView;
+        final TextView dateView;
+        final Button deleteButton;
         private final WeakReference<RecyclerDeleteButtonClickListener> listenerRef;
 
         ViewHolder(final View itemView, RecyclerDeleteButtonClickListener listener) {

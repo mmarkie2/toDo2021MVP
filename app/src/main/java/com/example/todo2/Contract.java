@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.example.todo2.model.RoomTask;
-import com.example.todo2.model.TaskData;
-import com.example.todo2.model.TaskDataWithId;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,8 +21,9 @@ public interface Contract {
         void onInvalidInput(String message);
 
         void onCorrectInput(String name, String type, int year, int month, int dayOfMonth);
-    }
 
+        Context getContext();
+    }
 
 
     interface mainScreenViewToPresenter {
@@ -34,6 +33,7 @@ public interface Contract {
         void onItemDelete(int position);
 
         void onAddButtonClick();
+
         void saveTask(String name, String type, int year, int month, int dayOfMonth);
 
     }
@@ -49,8 +49,9 @@ public interface Contract {
     interface presenterToMainScreenModel {
         ArrayList<RoomTask> queryTasks();
 
-        void deleteTask(int taskId);
-        void saveTask(TaskData taskData);
+        void deleteTask(RoomTask roomTask);
+
+        void saveTask(RoomTask roomTask);
     }
 
 }

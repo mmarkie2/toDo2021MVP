@@ -9,4 +9,14 @@
     <string name="name_hint">Tu wpisz nazwę</string>
     <string name="pick_date">Wybierz Datę</string>
     <string name="add">Dodaj</string>
+    <string name="error_empty_name"> Musisz podać nazwę. Czy chcesz powtórzyć?</string>
+    <string name="error_empty_date"> Musisz podać datę. Czy chcesz powtórzyć?</string>
+    <string name="error_empty_type"> Musisz podać typ. Czy chcesz powtórzyć?</string>
+    <string name="task_added"> Dodano zadanie</string>
+    <string-array name="types_array">
+        <item>Praca</item>
+        <item>Zakupy</item>
+        <item>Inne</item>
+
+    </string-array>
 </resources>

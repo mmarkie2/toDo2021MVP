@@ -11,18 +11,13 @@ import java.util.List;
 @Dao
 public interface TaskRoomDAO {
 
-    @Insert  //Automatyczna kwerenda wystarczy
-    public void insert(RoomTask pozycja);
+    @Insert
+    public void insert(RoomTask roomTask);
 
-    @Update //Automatyczna kwerenda wystarczy
-    void update(RoomTask pozycja);
 
-    @Query("SELECT * FROM task")
+    @Query("SELECT * FROM task ORDER BY date")
     List<RoomTask> getAll();
 
-
-    @Query("DELETE FROM task WHERE _id = :id")
-    abstract void deleteById(long id);
 
     @Delete
     void delete(RoomTask roomTask);
